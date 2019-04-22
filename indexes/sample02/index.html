@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>Vue Grid for Drag & Resize</title>
+  
+  
+  <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.2.0/css/all.css'>
+<link rel='stylesheet' href='https://fonts.googleapis.com/earlyaccess/notosanstc.css'>
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Monda:400,700'>
+
+      <link rel="stylesheet" href="css/style.css">
+
+  
+</head>
+
+<body>
+
+  
+<div id="app">
+  <transition name="popup">
+    <div class="model" v-if="modelOpen">
+      <div class="model-top">
+        <div class="type">{{modelType}}</div><i class="fas fa-times" @click="closeModel"></i>
+      </div>
+      <div class="model-content">
+        <div class="show-sequence">Cover:
+          <draggable class="dragArea" v-model="modelChartList" :options="dragOptions">
+            <div class="seq chart" v-for="chart in modelChartList" :key="chart">
+              <h3>{{chart}}</h3><i class="fas fa-bars"></i>
+            </div>
+          </draggable>
+          <div class="seq view"><i class="fas fa-eye"></i>
+            <h3>View</h3>
+          </div>
+        </div>
+        <div class="model-graph-block">
+          <div class="select-bar-wrapper">
+            <select-bar :items="['2015', '2016', '2017', '2018']"></select-bar>
+            <select-bar :items="['2015', '2016', '2017', '2018']"></select-bar>
+          </div>
+          <component :is="modelGraphType" :type="modelType + 'Model'"></component>
+        </div>
+      </div>
+      <div class="save" @click="saveModel">Save</div>
+    </div>
+  </transition>
+  <div class="mask" v-if="modelOpen"></div>
+  <div class="menu">
+    <div class="menu-item">Analysis Report</div>
+    <div class="menu-item">Edit Mode</div>
+  </div>
+  <div class="main-content" :class="{blur: modelOpen}">
+    <div class="dashboard">
+      <div class="dashboard-title"> 
+        <h2>5G / Some Kinds of 5G (76)</h2>
+      </div>
+      <div class="graphs">
+        <grid-layout :layout="dashboard" :col-num="12" :row-height="30" :is-draggable="true" :is-resizable="true" :is-mirrored="false" :vertical-compact="true" :margin="[28, 28]" :use-css-transforms="true">
+          <grid-item v-for="(item, idx) in dashboard" :x="item.x" :y="item.y" :w="item.w" :h="item.h" :i="item.i" minH="5" minW="4">
+            <report-item :type="item.type" :idx="idx"></report-item>
+          </grid-item>
+        </grid-layout>
+      </div>
+      <div class="patent-list-block">
+        <div class="collapse"><i class="fas fa-angle-down"></i>
+          <p>collapse</p>
+        </div>
+        <div class="patent-list">
+          <div class="sort-bar"></div>
+          <ip-info v-for="i in 5"></ip-info>
+        </div>
+      </div>
+    </div>
+    <div class="control-panel">
+      <h2 class="title">Portfolio List</h2>
+      <div class="patent-structure">
+        <div class="patent-type-block" v-for="i in 100">
+          <div class="patent-type">5G</div>
+          <div class="folder-block">
+            <div class="folder" v-for="i in 5"><i class="far fa-folder"></i>
+              <div class="folder-name">Some kinds of 5G</div>
+              <div class="amount">76</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<template id="report-item">
+  <div class="report-item">
+    <div class="report-type"> 
+      <h3>{{type}}</h3><i class="fas fa-ellipsis-h" @click="openModel"></i>
+    </div>
+    <component :is="graphType" :type="type"></component>
+  </div>
+</template>
+<!-- graph components-->
+<template id="line">
+  <div class="report-graph">
+    <canvas :id="`lineChart${type}`"></canvas>
+  </div>
+</template>
+<template id="pie">
+  <div class="report-graph">
+    <canvas :id="`pieChart${type}`"></canvas>
+  </div>
+</template>
+<template id="bar">
+  <div class="report-graph">
+    <canvas :id="`barChart${type}`"></canvas>
+  </div>
+</template>
+<template id="radar">
+  <div class="report-graph">
+    <canvas :id="`radarChart${type}`"></canvas>
+  </div>
+</template>
+<!-- select item-->
+<template id="select">
+  <div class="select-bar" @click="onClick">
+    <div class="nowSelec">{{nowSelect}}</div><i class="fas fa-sort-down"></i>
+    <div class="item-wrapper" v-if="listOpen">
+      <div class="items" v-for="item in items" @click="selectItem(item)">{{item}}</div>
+    </div>
+  </div>
+</template>
+<!-- patent component-->
+<template id="ip-info">
+  <div class="ip-info">
+    <div class="top">
+      <div class="ip-number">{{ip.ipNumber}}</div>
+      <div class="legal-status">{{ip.legalStatus}}</div>
+    </div>
+    <div class="ip-name">{{ip.ipName}}</div>
+    <div class="bottom">
+      <div class="country">國家：{{ip.country}}</div>
+      <div class="assignee">專利權人：{{ip.assignee}}</div>
+    </div>
+    <div class="price-wrapper"><span class="dollar">USD$</span><span class="price">{{ip.price}}</span></div>
+  </div>
+</template>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.min.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/vue-grid-layout@2.1.13/dist/vue-grid-layout.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.6.0/Sortable.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/15.0.0/vuedraggable.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/split.js/1.3.5/split.min.js'></script>
+
+  
+
+    <script  src="js/index.js"></script>
+
+
+
+
+</body>
+
+</html>

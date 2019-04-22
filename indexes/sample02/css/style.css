@@ -1,0 +1,363 @@
+* {
+  font-family: "Monda", "Noto Sans TC";
+}
+
+html, body {
+  padding: 0;
+  margin: 0;
+}
+
+#app {
+  position: relative;
+}
+
+.mask {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 5;
+}
+
+.model {
+  position: fixed;
+  width: 70vw;
+  background-color: white;
+  z-index: 10;
+  left: 50%;
+  top: 50vh;
+  -webkit-transform: translate(-50%, -50%) scale(1);
+          transform: translate(-50%, -50%) scale(1);
+  max-width: 900px;
+  padding: 20px 25px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
+  transition: 0.2s;
+  -webkit-transform-origin: 0% 0%;
+          transform-origin: 0% 0%;
+}
+.model .save {
+  width: 80px;
+  padding: 5px 20px;
+  text-align: center;
+  font-size: 16px;
+  position: relative;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  margin-top: 30px;
+  border: solid 1px black;
+  cursor: pointer;
+}
+.model .save:hover {
+  background-color: black;
+  color: white;
+}
+.model .model-content {
+  display: flex;
+}
+.model .model-content .model-graph-block {
+  width: 78%;
+  height: 60vh;
+}
+.model .model-content .model-graph-block .select-bar-wrapper {
+  height: 40px;
+  display: flex;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.model .model-content .show-sequence {
+  width: 22%;
+  padding: 10px 20px;
+}
+.model .model-content .show-sequence .seq {
+  display: flex;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  border: solid 1px black;
+  margin-top: 15px;
+  cursor: move;
+  transition: 0.4s;
+  position: relative;
+}
+.model .model-content .show-sequence .seq h3 {
+  font-size: 17px;
+  font-weight: 500;
+}
+.model .model-content .show-sequence .seq i {
+  margin-left: 10px;
+  position: absolute;
+  right: 10px;
+}
+.model .model-content .show-sequence .view i {
+  position: relative;
+  margin: 0;
+  font-size: 20px;
+  margin-right: 10px;
+}
+.model .model-top {
+  display: flex;
+  align-items: center;
+  padding-bottom: 8px;
+  border-bottom: solid 1px rgba(0, 0, 0, 0.2);
+}
+.model .model-top .type {
+  font-size: 24px;
+}
+.model .model-top i {
+  font-size: 28px;
+  position: absolute;
+  right: 25px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.model .model-top i:hover {
+  -webkit-transform: scale(1.2) rotate(10deg);
+          transform: scale(1.2) rotate(10deg);
+}
+
+.main-content {
+  display: flex;
+}
+
+.main-content.blur {
+  -webkit-filter: blur(6px);
+          filter: blur(6px);
+}
+
+.dashboard {
+  width: 70vw;
+}
+.dashboard .dashboard-title {
+  padding: 0px 20px;
+}
+.dashboard .dashboard-title h2 {
+  margin: 6px;
+  margin-top: 20px;
+}
+
+.control-panel {
+  width: 30vw;
+}
+.control-panel .title {
+  padding-left: 10px;
+  border: solid 1px rgba(0, 0, 0, 0.2);
+}
+
+.patent-structure {
+  padding: 0px 10px;
+  height: 100vh;
+  overflow-y: scroll;
+}
+
+.patent-type-block {
+  margin-bottom: 15px;
+  padding: 0px 10px;
+}
+.patent-type-block .patent-type {
+  font-size: 18px;
+  margin-bottom: 10px;
+  border-bottom: solid 1px rgba(0, 0, 0, 0.2);
+  padding-bottom: 4px;
+}
+.patent-type-block .folder {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 5px;
+}
+
+.patent-list-block {
+  padding: 10px 30px;
+}
+.patent-list-block .collapse {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: solid 1px rgba(0, 0, 0, 0.2);
+  margin-bottom: 20px;
+  height: 60px;
+}
+.patent-list-block .collapse i {
+  font-size: 30px;
+}
+.patent-list-block .collapse p {
+  font-size: 22px;
+  margin-left: 20px;
+}
+
+.menu {
+  display: flex;
+}
+.menu .menu-item {
+  padding: 10px 15px;
+  border-radius: 10px 10px 0px 0px;
+  border: solid 1px rgba(0, 0, 0, 0.2);
+  border-bottom: none;
+}
+.menu .menu-item:nth-child(2) {
+  margin-left: 20px;
+}
+
+.select-bar {
+  display: flex;
+  border: solid 1px black;
+  width: 120px;
+  padding: 5px 15px;
+  position: relative;
+  margin-left: 30px;
+  cursor: pointer;
+}
+.select-bar .nowSelec {
+  margin-left: 20px;
+}
+.select-bar i {
+  font-size: 22px;
+  position: absolute;
+  right: 20px;
+}
+.select-bar .item-wrapper {
+  position: absolute;
+  width: 100%;
+  left: 0px;
+  top: 40px;
+  z-index: 10;
+  transition: 0.5s;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.4);
+}
+.select-bar .item-wrapper .items {
+  padding: 6px 15px;
+  text-align: center;
+  background-color: white;
+}
+.select-bar .item-wrapper .items:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.report-item {
+  height: 100%;
+  width: 100%;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+.report-item .report-type {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  padding: 0px 20px;
+}
+.report-item .report-type h3 {
+  font-weight: 400;
+}
+.report-item .report-type i {
+  position: absolute;
+  right: 10px;
+  font-size: 18px;
+  cursor: pointer;
+  -webkit-transform: rotate(0deg) scale(1);
+          transform: rotate(0deg) scale(1);
+}
+.report-item .report-type i:hover {
+  transition: 0.3s;
+  -webkit-transform: scale(1.2) rotate(90deg);
+          transform: scale(1.2) rotate(90deg);
+}
+
+.report-graph {
+  position: relative;
+  height: 80%;
+  width: 100%;
+}
+
+.vue-grid-item.vue-grid-placeholder {
+  background-color: rgba(0, 0, 0, 0.2) !important;
+}
+
+.ip-info {
+  margin-bottom: 15px;
+  padding: 12px;
+  border: solid 1px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: 0.3s;
+  border-radius: 6px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+.ip-info .top, .ip-info .ip-name, .ip-info .bottom {
+  margin-bottom: 5px;
+}
+.ip-info .price-wrapper {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  font-size: 18px;
+}
+.ip-info .price-wrapper .dollar {
+  font-size: 14px;
+  margin-right: 3px;
+}
+.ip-info .bottom {
+  display: flex;
+  font-size: 15px;
+}
+.ip-info .bottom .country {
+  margin-right: 10px;
+}
+.ip-info .ip-name {
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+.ip-info .top {
+  display: flex;
+  align-items: center;
+}
+.ip-info .top .ip-number {
+  font-size: 14px;
+  margin-right: 10px;
+}
+.ip-info .top .legal-status {
+  font-size: 14px;
+  border: solid 1px rgba(0, 0, 0, 0.2);
+  padding: 1px 5px;
+}
+
+@-webkit-keyframes bounce-in {
+  0% {
+    -webkit-transform: scale(0) translate(-50%, -50%);
+            transform: scale(0) translate(-50%, -50%);
+  }
+  50% {
+    -webkit-transform: scale(1.1) translate(-50%, -50%);
+            transform: scale(1.1) translate(-50%, -50%);
+  }
+  100% {
+    -webkit-transform: translate(-50%, -50%) scale(1);
+            transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes bounce-in {
+  0% {
+    -webkit-transform: scale(0) translate(-50%, -50%);
+            transform: scale(0) translate(-50%, -50%);
+  }
+  50% {
+    -webkit-transform: scale(1.1) translate(-50%, -50%);
+            transform: scale(1.1) translate(-50%, -50%);
+  }
+  100% {
+    -webkit-transform: translate(-50%, -50%) scale(1);
+            transform: translate(-50%, -50%) scale(1);
+  }
+}
+.popup-enter-active {
+  -webkit-animation: bounce-in 0.4s;
+          animation: bounce-in 0.4s;
+}
+
+.popup-leave-active {
+  animation: bounce-in 0.2s reverse;
+}
+
+.gutter {
+  background-color: rgba(0, 0, 0, 0.3);
+}

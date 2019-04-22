@@ -1,0 +1,107 @@
+#app
+	transition(name="popup")
+		.model(v-if="modelOpen")
+			.model-top
+				.type {{modelType}}
+				i(class="fas fa-times" @click="closeModel")
+			.model-content
+				.show-sequence Cover:
+					draggable.dragArea(v-model="modelChartList" :options="dragOptions")
+						.seq.chart(v-for="chart in modelChartList" :key="chart")
+							h3 {{chart}}
+							i(class="fas fa-bars")
+					.seq.view
+						i(class="fas fa-eye")
+						h3 View
+				.model-graph-block
+					.select-bar-wrapper
+						select-bar(:items="['2015', '2016', '2017', '2018']")
+						select-bar(:items="['2015', '2016', '2017', '2018']")
+					component(:is="modelGraphType" :type="modelType + 'Model'")
+			.save(@click="saveModel") Save
+	.mask(v-if="modelOpen")
+	.menu
+		.menu-item Analysis Report
+		.menu-item Edit Mode
+	.main-content(:class="{blur: modelOpen}")
+		.dashboard
+			.dashboard-title 
+				h2 5G / Some Kinds of 5G (76)
+			.graphs
+				grid-layout(:layout="dashboard"
+						:col-num="12"
+						:row-height="30"
+						:is-draggable="true"
+						:is-resizable="true"
+						:is-mirrored="false"
+						:vertical-compact="true"
+						:margin="[28, 28]"
+						:use-css-transforms="true")
+					grid-item(v-for="(item, idx) in dashboard" :x="item.x" :y="item.y" :w="item.w" :h="item.h" :i="item.i" minH="5" minW="4")
+						report-item(:type="item.type" :idx="idx")
+			.patent-list-block
+				.collapse
+					i(class="fas fa-angle-down")
+					p collapse
+				.patent-list
+					.sort-bar
+					ip-info(v-for="i in 5")
+		.control-panel
+			h2.title Portfolio List
+			.patent-structure
+				.patent-type-block(v-for="i in 100")
+					.patent-type 5G
+					.folder-block
+						.folder(v-for="i in 5")
+							i(class="far fa-folder")
+							.folder-name Some kinds of 5G
+							.amount 76
+
+
+template#report-item
+	.report-item
+		.report-type 
+			h3 {{type}}
+			i(class="fas fa-ellipsis-h" @click="openModel")
+		component(:is="graphType" :type="type")
+
+// graph components
+template#line
+	.report-graph
+		canvas(:id="`lineChart${type}`")
+
+template#pie
+	.report-graph
+		canvas(:id="`pieChart${type}`")
+
+template#bar
+	.report-graph
+		canvas(:id="`barChart${type}`")
+		
+template#radar
+	.report-graph
+		canvas(:id="`radarChart${type}`")
+		
+
+// select item
+template#select
+	.select-bar(@click="onClick")
+		.nowSelec {{nowSelect}}
+		i(class="fas fa-sort-down")
+		.item-wrapper(v-if="listOpen")
+			.items(v-for="item in items" @click="selectItem(item)") {{item}}
+		
+
+// patent component
+template#ip-info
+	.ip-info
+		.top
+			.ip-number {{ip.ipNumber}}
+			.legal-status {{ip.legalStatus}}
+		.ip-name {{ip.ipName}}
+		.bottom
+			.country 國家：{{ip.country}}
+			.assignee 專利權人：{{ip.assignee}}
+		.price-wrapper
+			span.dollar USD$
+			span.price {{ip.price}}
